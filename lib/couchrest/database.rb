@@ -89,7 +89,21 @@ module CouchRest
         end
       end
     end
-    
+
+    def list(dname, lname, vname, params = {}, &block)
+      keys = params.delete(:keys)
+      url = CouchRest.paramify_url "#{@root}/_design/#{dname}/_list/#{lname}/#{vname}", params
+      if keys
+        CouchRest.post(url, {:keys => keys})
+      else
+        if block_given?
+          @streamer.list("#{@root}/_design/#{dname}/_list/#{lname}/#{vname}", params, &block)
+        else
+          CouchRest.get url
+        end
+      end
+    end
+
     # GET a document from CouchDB, by id. Returns a Ruby Hash.
     def get(id, params = {})
       slug = escape_docid(id)

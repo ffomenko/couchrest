@@ -27,6 +27,18 @@ module CouchRest
       end
       parse_first(first)
     end
+
+    def list view_url, params = nil, &block
+      url = CouchRest.paramify_url view_url, params
+      count = 0
+      IO.popen("curl --silent \"#{url}\"") do |view|
+        while line = view.gets
+          block.call line
+          count += 1
+        end
+      end
+      count
+    end
     
     private
     
