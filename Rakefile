@@ -17,7 +17,7 @@ end
 begin
   require 'jeweler'
   Jeweler::Tasks.new do |gemspec|
-    gemspec.name = "couchrest"
+    gemspec.name = "regenersis_couchrest"
     gemspec.summary = "Lean and RESTful interface to CouchDB."
     gemspec.description = "CouchRest provides a simple interface on top of CouchDB's RESTful HTTP API, as well as including some utility scripts for managing views and attachments."
     gemspec.email = "jchris@apache.org"
